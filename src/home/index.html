@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="input"> <button id="search">搜索</button>
+    <div id="content"></div>
+    <script src="./resources/axios.js"></script>
+    <script>
+        var searchInput = document.getElementById('input'),
+            searchBtn = document.getElementById('search'),
+            content = document.getElementById('content');
+            searchBtn.onclick = function () {
+                axios.post('/search', {keywords: searchInput.value}).then((res) => {
+                    console.log(res.data)
+                    content.innerHTML = `<ul id="ul">${res.data.map((e) => '<li data-id="' + e.id +'">' + e.name + ' ' + e.ar.map(e=>e.name).join('') +  ' ' + e.al.name + '</li>').join('')}</ul>`;
+                    var ul = document.getElementById('ul');
+                    ul.onclick = function (e) {
+                        axios.post('/url', { id: e.target.dataset.id })
+                    }
+            })
+        }
+      
+    </script>
+</body>
+</html>
