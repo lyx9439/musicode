@@ -1131,5 +1131,5 @@ function cB8t(gE0x) {
 }
 // ————end
 
-export var asrsea = d;
-export var ecnonasr = e;
+exports.asrsea = d;
+exports.ecnonasr = e;

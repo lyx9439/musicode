@@ -1,9 +1,6 @@
 module.exports = {
 	devServer: {
-		proxy: {
-			'/': {
-				target: 'http://localhost:8080'
-			}
-		}
+		port: 8081, // 端口号
+		host: '0.0.0.0' // 主机地址
 	}
 };

@@ -1,11 +1,10 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var search = require('../163music').search;
-var url = require('../163music').url;
+var { search, url } = require('./163music/api');
 
 var app = express();
 
-app.use(express.static('src/home')).listen(8080);
+app.use(express.static('src/server/home')).listen(8080);
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 

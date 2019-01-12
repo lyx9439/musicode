@@ -8,7 +8,6 @@
 <script>
 // @ is an alias to /src
 import axios from "axios";
-import { search } from "../163music";
 
 export default {
   data() {
@@ -19,11 +18,7 @@ export default {
   name: "home",
   components: {},
   methods: {
-    handleSearch: () => {
-      search("光年之外", res => {
-        console.log(res);
-      });
-    }
+    handleSearch: () => {}
   }
 };
 </script>

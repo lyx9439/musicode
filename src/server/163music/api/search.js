@@ -1,8 +1,7 @@
-var sendAjax = require('../public/sendAjax').sendAjax;
+var { sendAjax } = require('../public');
 const URL = 'https://music.163.com/weapi/cloudsearch/get/web?csrf_token=';
 
-export function search(keywords, callback) {
-	console.log(keywords);
+exports.search = function(keywords, callback) {
 	sendAjax({
 		url: URL,
 		param: {
@@ -23,4 +22,4 @@ export function search(keywords, callback) {
 			typeof callback === 'function' && callback(songs);
 		}
 	});
-}
+};

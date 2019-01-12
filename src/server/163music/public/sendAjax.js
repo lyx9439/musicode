@@ -1,9 +1,8 @@
 var querystring = require('querystring');
 var https = require('https');
-import { asrsea } from '../public/base.js';
-import axios from 'axios';
+var { asrsea } = require('./base.js');
 
-export function sendAjax({ url, param, callback }) {
+exports.sendAjax = function({ url, param, callback }) {
 	var bMi1x = asrsea(
 		JSON.stringify(param),
 		'010001',
@@ -16,38 +15,33 @@ export function sendAjax({ url, param, callback }) {
 		encSecKey: bMi1x.encSecKey
 	});
 
-	// const options = {
-	// 	method: 'POST',
-	// 	headers: {
-	// 		'Content-Type': 'application/x-www-form-urlencoded',
-	// 		'Content-Length': Buffer.byteLength(postData)
-	// 	},
-	// 	url: url
-	// };
+	const options = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'Content-Length': Buffer.byteLength(postData)
+		}
+	};
 
-	// const req = https.request(options, (res) => {
-	// 	if (res.statusCode === 200) {
-	// 		res.setEncoding('utf8');
-	// 		let str = '';
-	// 		res.on('data', (data) => {
-	// 			str += data;
-	// 		});
-	// 		res.on('end', () => {
-	// 			str = JSON.parse(str);
-	// 			typeof callback === 'function' && callback(str);
-	// 		});
-	// 	}
-	// });
-
-	// req.on('error', (e) => {
-	// 	console.error(`请求遇到问题: ${e.message}`);
-	// });
-
-	// // 将数据写入到请求主体。
-	// req.write(postData);
-	// req.end();
-
-	axios.post(url, postData).then((res) => {
-		console.log(res);
+	const req = https.request(url, options, (res) => {
+		if (res.statusCode === 200) {
+			res.setEncoding('utf8');
+			let str = '';
+			res.on('data', (data) => {
+				str += data;
+			});
+			res.on('end', () => {
+				str = JSON.parse(str);
+				typeof callback === 'function' && callback(str);
+			});
+		}
 	});
-}
+
+	req.on('error', (e) => {
+		console.error(`请求遇到问题: ${e.message}`);
+	});
+
+	// 将数据写入到请求主体。
+	req.write(postData);
+	req.end();
+};

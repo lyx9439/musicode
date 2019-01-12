@@ -1,7 +1,7 @@
-var sendAjax = require('../public/sendAjax').sendAjax;
+var { sendAjax } = require('../public');
 const URL = 'https://music.163.com/weapi/song/enhance/player/url?csrf_token=';
 
-export function url(id, callback) {
+exports.url = function(id, callback) {
 	sendAjax({
 		url: URL,
 		param: {
@@ -17,4 +17,4 @@ export function url(id, callback) {
 			typeof callback === 'function' && callback(urls);
 		}
 	});
-}
+};
